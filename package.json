@@ -1,0 +1,13 @@
+{
+  "name": "NodejsFRConnect",
+  "version": "0.0.1",
+  "description": "A sample code project using Flickr to perform server-side syncing operations",
+  "dependencies": {
+    "express": "*",
+    "qs": "*",
+    "request": "*",
+    "form-data": "*",
+    "dateformat": "*",
+   },
+  "engine": "node 0.6.x"
+}
