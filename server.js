@@ -3,7 +3,7 @@ var express = require('express'),
     http = require('http');
 
 //Custom Modules
-var FacebookHandlers=require("./FlickrHandlers");
+var FlickrHandlers=require("./FlickrHandlers");
 
 //Instantiate express
 var app = express();
@@ -26,6 +26,9 @@ app.configure(function () {
 });
 
 // All routing related configuration over here
+app.get('/access_token', FlickrHandlers.getAccessToken);
+app.get('/user_details', FlickrHandlers.getUserDetails);
+app.get('/callback', FlickrHandlers.callback);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
