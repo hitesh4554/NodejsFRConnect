@@ -232,6 +232,50 @@ exports.getAccessToken=function (req, response) {
   }
 };
 
+/* URL: /create_album
+ * Info: The below function will create an album in
+ * Flickr */
+exports.createAlbum=function (req, response) {
+  try {
+    var body = req.body;
+    if (!body || !body.name || !body.description || !body.token ||
+      !body.token_secret || !body.primary_fr_id) {
+      response.end(JSON.stringify({'error': 'missing_params'}));
+      return;
+    }
+
+    var name = encodeData(body.name);
+    var description = encodeData(body.description);
+    var token = body.token;
+    var token_secret = body.token_secret;
+    var primary_fr_id = body.primary_fr_id;
+
+    reqParams['query'] = {
+      'method': 'flickr.photosets.create',
+      'title': name,
+      'description': description,
+      'primary_photo_id': primary_fr_id
+    };
+    services(reqParams, function (err, data) {
+      if (err) {
+        console.log(err);
+        response.end(JSON.stringify({'error': err}));
+        return;
+      }
+      jsonObject = data['jsonObject'];
+      delete reqParams['query'];
+      delete reqParams['jsonObject'];
+      response.end(JSON.stringify(jsonObject));
+      return;
+    });
+  }
+  catch (e) {
+    console.log('CaughtException: '+e.stack);
+    response.end(JSON.stringify({'error': e}));
+    return;
+  }
+};
+
 function services(reqParams, cb) {
   var token = get_param_data(reqParams, 'token');
   var token_secret = get_param_data(reqParams, 'token_secret');

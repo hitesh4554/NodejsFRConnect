@@ -29,6 +29,7 @@ app.configure(function () {
 app.get('/access_token', FlickrHandlers.getAccessToken);
 app.get('/user_details', FlickrHandlers.getUserDetails);
 app.get('/callback', FlickrHandlers.callback);
+app.post('/create_album', FlickrHandlers.createAlbum);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
